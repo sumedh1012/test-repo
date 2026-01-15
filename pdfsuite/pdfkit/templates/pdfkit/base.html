@@ -1,0 +1,26 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PDF Suite</title>
+  <link rel="stylesheet" href="{% static 'css/app.css' %}" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="/">PDF Suite</a>
+      <nav class="nav">
+        <a href="/edit/">Edit PDF</a>
+        <a href="/unlock/">Unlock PDF</a>
+        <a href="/images-to-pdf/">Images → PDF</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

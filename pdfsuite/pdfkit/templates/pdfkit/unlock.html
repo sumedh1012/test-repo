@@ -1,0 +1,18 @@
+{% extends "pdfkit/base.html" %}
+{% block content %}
+  <h1>Unlock PDF</h1>
+  <form class="panel" method="post" action="/unlock/run/" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label class="field">
+      <span>Protected PDF</span>
+      <input type="file" name="pdf" accept="application/pdf" required />
+    </label>
+    <label class="field">
+      <span>Password (required if PDF is encrypted)</span>
+      <input type="password" name="password" />
+    </label>
+
+    <button class="btn" type="submit">Remove Password & Download</button>
+    <p class="muted small">This works only when you provide the correct password.</p>
+  </form>
+{% endblock %}

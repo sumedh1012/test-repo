@@ -1,0 +1,13 @@
+{% extends "pdfkit/base.html" %}
+{% block content %}
+  <h1>Images → PDF</h1>
+  <form class="panel" method="post" action="/images-to-pdf/run/" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label class="field">
+      <span>Images (select multiple)</span>
+      <input type="file" name="images" accept="image/*" multiple required />
+    </label>
+
+    <button class="btn" type="submit">Convert & Download PDF</button>
+  </form>
+{% endblock %}

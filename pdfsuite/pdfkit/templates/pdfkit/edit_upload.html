@@ -1,0 +1,15 @@
+{% extends "pdfkit/base.html" %}
+{% block content %}
+  <h1>Edit PDF</h1>
+
+  <form class="panel" method="post" action="/edit/upload/" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label class="field">
+      <span>PDF file</span>
+      <input type="file" name="pdf" accept="application/pdf" required />
+    </label>
+
+    <button class="btn" type="submit">Upload & Open Editor</button>
+    <p class="muted small">Tip: “erase” is implemented as redaction (removes underlying content).</p>
+  </form>
+{% endblock %}
