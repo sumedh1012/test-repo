@@ -1,0 +1,22 @@
+{% extends "pdfkit/base.html" %}
+{% block content %}
+  <h1>PDF Suite</h1>
+  <p class="muted">Basic PDF editor (add text/image, redact), unlock with known password, and images-to-PDF.</p>
+
+  <div class="cards">
+    <a class="card" href="/edit/">
+      <h2>Edit PDF</h2>
+      <p>Add text/images. “Erase” by redaction/whiteout rectangle.</p>
+    </a>
+
+    <a class="card" href="/unlock/">
+      <h2>Unlock PDF</h2>
+      <p>Removes password protection only if you provide the correct password.</p>
+    </a>
+
+    <a class="card" href="/images-to-pdf/">
+      <h2>Images → PDF</h2>
+      <p>Upload images and download one combined PDF.</p>
+    </a>
+  </div>
+{% endblock %}

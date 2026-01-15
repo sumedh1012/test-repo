@@ -1,0 +1,107 @@
+{% extends "pdfkit/base.html" %}
+{% block content %}
+  <h1>Editor</h1>
+
+  <div class="grid">
+    <section class="panel">
+      <h2>Tools</h2>
+
+      <div class="row">
+        <label class="field">
+          <span>Page</span>
+          <select id="pageSelect">
+            {% for p in pages %}
+              <option value="{{ p.page_index }}">Page {{ p.page_index|add:1 }}</option>
+            {% endfor %}
+          </select>
+        </label>
+
+        <button class="btn secondary" id="clearOpsBtn" type="button">Clear Pending Ops</button>
+      </div>
+
+      <hr/>
+
+      <h3>Add Text</h3>
+      <div class="row">
+        <label class="field">
+          <span>Text</span>
+          <input id="textValue" type="text" placeholder="Click on page to place this text" />
+        </label>
+      </div>
+      <div class="row">
+        <label class="field">
+          <span>Size</span>
+          <input id="textSize" type="number" value="18" min="6" max="144" />
+        </label>
+        <label class="field">
+          <span>Color</span>
+          <input id="textColor" type="color" value="#000000" />
+        </label>
+      </div>
+      <p class="muted small">Mode: <b>Text</b> (click to place).</p>
+      <button class="btn secondary" id="modeText" type="button">Use Text Tool</button>
+
+      <hr/>
+
+      <h3>Add Image</h3>
+      <div class="row">
+        <label class="field">
+          <span>Image</span>
+          <input id="imgFile" type="file" accept="image/*" />
+        </label>
+      </div>
+      <div class="row">
+        <label class="field">
+          <span>Width</span>
+          <input id="imgW" type="number" value="220" min="10" max="2000" />
+        </label>
+        <label class="field">
+          <span>Height</span>
+          <input id="imgH" type="number" value="160" min="10" max="2000" />
+        </label>
+      </div>
+      <p class="muted small">Mode: <b>Image</b> (click to place).</p>
+      <button class="btn secondary" id="modeImage" type="button">Use Image Tool</button>
+
+      <hr/>
+
+      <h3>Erase</h3>
+      <p class="muted small">Mode: <b>Redact</b> (drag rectangle to remove content under it).</p>
+      <button class="btn secondary" id="modeRedact" type="button">Use Redact Tool</button>
+
+      <hr/>
+
+      <div class="row">
+        <button class="btn" id="saveBtn" type="button">Save PDF</button>
+        <a class="btn secondary" id="downloadLink" href="#" style="display:none;">Download</a>
+      </div>
+
+      <div class="muted small" id="opsCount">Pending ops: 0</div>
+    </section>
+
+    <section class="panel">
+      <h2>Page Preview</h2>
+      <div class="canvasWrap">
+        {% for p in pages %}
+        <img
+            class="pageImg"
+            id="pageImg-{{ p.page_index }}"
+            src="{{ media_url }}{{ p.preview_rel }}"
+            data-page-index="{{ p.page_index }}"
+            data-page-width="{{ p.page_width }}"
+            data-page-height="{{ p.page_height }}"
+            style="{% if p.page_index != 0 %}display:none{% endif %}"
+            alt="Page {{ p.page_index|add:1 }}"
+        />
+        {% endfor %}
+        <div id="overlayBox" class="overlayBox" style="display:none;"></div>
+      </div>
+      <p class="muted small">Click or drag on the preview to place items. Coordinates are mapped to PDF units.</p>
+    </section>
+  </div>
+
+  <script>
+    window.PDFKIT_JOB_ID = "{{ job_id }}";
+  </script>
+  <script src="/static/pdfkit/editor.js"></script>
+{% endblock %}
